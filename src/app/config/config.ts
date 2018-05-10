@@ -1,0 +1,1 @@
+export const URL_SERVICIOS = "/backendcolegiocli/api/msvpos/v1";
