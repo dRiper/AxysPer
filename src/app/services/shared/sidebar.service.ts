@@ -24,6 +24,21 @@ export class SidebarService {
           titulo : 'Rxjs', url : '/rxjs',
         }
       ]
+    },
+    {
+      titulo : 'Gestion',
+      icono : 'mdi mdi-folder-lock-open',
+      submenu : [
+        {
+          titulo : 'Usuarios', url : '/usuarios',
+        },
+        {
+          titulo : 'Docentes', url : '/progress',
+        },
+        {
+          titulo : 'Administrativos', url : '/graficas1',
+        }
+      ]
     }
   ]
 

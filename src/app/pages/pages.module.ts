@@ -1,7 +1,9 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ShareModule } from "../shared/share.module";
 import { ChartsModule } from 'ng2-charts';
+
 
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ProgressComponent } from "./progress/progress.component";
@@ -13,6 +15,10 @@ import { GraficoDonaComponent } from "../components/grafico-dona/grafico-dona.co
 import { AccountSettingComponent } from './account-setting/account-setting.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { PipesModule } from "../pipes/pipes.module";
+import { ProfileComponent } from './profile/profile.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+
 
 
 @NgModule({
@@ -25,7 +31,9 @@ import { RxjsComponent } from './rxjs/rxjs.component';
         GraficoDonaComponent,
         AccountSettingComponent,
         PromesasComponent,
-        RxjsComponent
+        RxjsComponent,
+        ProfileComponent,
+        UsuariosComponent
     ],
     exports : [
         PagesComponent,
@@ -34,10 +42,12 @@ import { RxjsComponent } from './rxjs/rxjs.component';
         Graficas1Component
     ],
     imports :[
+        BrowserModule,
         ShareModule,
         PAGES_ROUTES,
         FormsModule,
-        ChartsModule
+        ChartsModule,
+        PipesModule
     ]
 })
 

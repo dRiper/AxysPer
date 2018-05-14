@@ -14,8 +14,11 @@ declare function init_plugins();
 })
 export class LoginComponent implements OnInit {
 
+  public spin:boolean = false;
   public recuerdame:boolean = false;
   public email:string = '';
+
+
   constructor(
     public route : Router,
     public _usuarioService:UsuarioService
@@ -31,6 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   ingresar(forma : NgForm){
+    this.spin =true;
     if(forma.invalid){
       return;
     }

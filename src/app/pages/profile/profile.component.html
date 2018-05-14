@@ -1,0 +1,82 @@
+<div class="row animated fadeIn">
+  <div class="col-lg-7">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Perfil de Usuario</h4>
+        <h6 class="card-subtitle">{{usuario.nombre}}</h6>
+        <form class="form p-t-20" ngNativeValidate #f="ngForm" (ngSubmit)="guardar(f.value)">
+          <div class="form-group">
+            <label for="exampleInputuname">Nombree</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="ti-user"></i>
+              </div>
+              <input [ngModel]="usuario.nombre" name="nombre" type="text" class="form-control" id="exampleInputuname" placeholder="Nombre de Usuario"
+                required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Correo</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="ti-email"></i>
+              </div>
+              <input type="email" [ngModel]="usuario.email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Correo del Usuario"
+                required>
+            </div>
+          </div>
+          <!-- <div class="form-group">
+            <label for="pwd1">Password</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="ti-lock"></i>
+              </div>
+              <input type="password" class="form-control" id="pwd1" placeholder="Enter email">
+            </div>
+          </div> -->
+          <!-- <div class="form-group"> -->
+          <!-- <label for="pwd2">Confirm Password</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="ti-lock"></i>
+              </div>
+              <input type="password" class="form-control" id="pwd2" placeholder="Enter email">
+            </div>
+          </div> -->
+          <!-- <div class="form-group">
+            <div class="checkbox checkbox-success">
+              <input id="checkbox1" type="checkbox">
+              <label for="checkbox1"> Remember me </label>
+            </div>
+          </div> -->
+          <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+            <span *ngIf="spin">
+              <i class="fa fa-spinner fa-spin"></i>
+            </span> Guardar
+          </button> 
+          <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card">
+      <div class="card-body " align="center">
+        <h4 class="card-title">Fotografia del Usuario</h4>
+        <!-- <h6 class="card-subtitle">{{usuario.nombre}}</h6> -->
+        <div class="form-group">
+          <img *ngIf="!imagenTemp" [src]="usuario.img | imagen" alt="user" style="width:150px">
+          <img *ngIf="imagenTemp" [src]="imagenTemp" alt="user" style="width:150px">
+        </div>
+        <div class="form-group">
+          <input type="file" class="form-control"  (change)='seleccionImagen($event.target.files[0])'>
+        </div>       
+        <button (click) ="cambiarImagen()" [disabled] = "!imagenSubir" type="button" class="btn btn-success waves-effect waves-light m-r-10">
+            <span *ngIf="spin2">
+                <i class="fa fa-spinner fa-spin"></i>
+              </span> Actualizar Foto</button>
+      </div>
+    </div>
+  </div>
+</div>
