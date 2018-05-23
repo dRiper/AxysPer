@@ -15,7 +15,7 @@ export class ImagenPipe implements PipeTransform {
     }
 
     if(img.indexOf('http') >= 0){
-      console.log(img);
+      // console.log(img);
       return img;
     }
 
@@ -23,6 +23,8 @@ export class ImagenPipe implements PipeTransform {
       case 'usuario':  url += '/usuarios/' + img; break;    
       default: url += '/usuarios/' + img; break;
     }
+
+    console.log(url);
   
     return img;
   }

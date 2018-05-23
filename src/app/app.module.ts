@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule,FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 
 import { APP_ROUTES } from './app.routes';
 
@@ -12,11 +12,20 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { ServiceModule } from './services/service.module';
 
+
+// import { DatatablesProductsComponent } from './datatables-products/datatables-products.component';
+
+
+import {DataTableModule} from "angular2-datatable";
+
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    // ModalUploadComponent,
+    // DatatablesProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +33,8 @@ import { ServiceModule } from './services/service.module';
     PagesModule,
     FormsModule,
     ReactiveFormsModule,
-    ServiceModule
+    ServiceModule,
+    DataTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

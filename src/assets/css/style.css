@@ -2898,7 +2898,9 @@ form p {
   text-align: left; }
 
 form p:last-child {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  margin-left: 15px;
+}
 
 /* Remove default checkbox */
 [type="checkbox"]:not(:checked),
@@ -4023,7 +4025,9 @@ Table Cell
 
 .table td,
 .table th {
-  border-color: #f3f1f1; }
+  border-color: #f3f1f1; 
+  padding: 10px 10px 0px 10px;
+  vertical-align: middle;}
 
 .table thead th,
 .table th {

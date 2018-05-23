@@ -1,3 +1,295 @@
-<p>
-  usuarios works!
-</p>
+<div class="row hdr-nav-bar">
+    <div class="col-md-12">
+        <nav class="navbar navbar-expand-lg navbar-light">
+
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <!-- Nav item -->
+                    <li class="nav-item active">
+                        <a class="nav-link" href="javascript:void(0)">Home</a>
+                    </li>
+                    <!-- Nav item -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Inbox
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0)">Mail Box</a>
+                            <a class="dropdown-item" href="javascript:void(0)">Mailbox Detail</a>
+                            <a class="dropdown-item" href="javascript:void(0)">Compose mail</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0)">Separated link</a>
+                        </div>
+                    </li>
+                    <!-- Nav item -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)">Widgets</a>
+                    </li>
+                    <!-- Nav item -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)">Forms</a>
+                    </li>
+                    <!-- Nav item -->
+                </ul>
+                <div class="call-to-act">
+                    <div class="d-flex no-block">
+                        <select class="custom-select hdr-bar m-r-10">
+                            <option selected="">January 2017</option>
+                            <option value="1">February</option>
+                            <option value="2">March</option>
+                            <option value="3">April</option>
+                        </select>
+                        <div class="ml-auto">
+                            <button type="button" class="btn btn-success btn-rounded" (click)="abrirModalNuevo()">
+                                <i class="fa fa-plus-circle m-r-5"></i>Nuevo Usuario</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <!-- <div class="animated fadeIn" *ngIf="cargando">
+                    <div class="col-sm-12">
+                        <div class="alert alert-warning text-center">
+                            <strong>Cargando...</strong>
+                            <br>
+                            <i class="fa fa-refresh fa-spin fa-2x"></i>
+                            <br>
+                            <span>Esperar por favor</span>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="table-responsive m-t-40"> -->
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="display nowrap table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let usuario of data">
+                            <td class="text-center">
+                                <img [src]="usuario.img | imagen" alt="" style="width: 30px" class="img-circle text-center">
+                            </td>
+                            <td>{{usuario.id}}</td>
+                            <td>{{usuario.nombre}}</td>
+                            <td>{{usuario.email}}</td>
+                            <td>
+                                <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
+                                    <button (click)="modalCambioPwd(usuario.id)" type="button" class="btn btn-success">
+                                        <i class="mdi mdi-account-key"></i>
+                                    </button>
+                                    <button (click)="abrirModal(usuario)" type="button" class="btn btn-secondary font-18">
+                                        <i class="mdi mdi-account-edit"></i>
+                                    </button>
+                                    <button (click)="borrarUsuario(usuario)" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Eliminar">
+                                        <i class="mdi mdi-account-off"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+</div>
+<div class="loading" *ngIf="modalspin">
+    <div class="loading-bar"></div>
+    <div class="loading-bar"></div>
+    <div class="loading-bar"></div>
+    <div class="loading-bar"></div>
+</div>
+<div class=" animated fadeIn" [ngClass]="oculto" style="background: rgba(0, 0, 0, 0.4);position:fixed;top:0px;left: 0;width: 100%;height: 100%;z-index: 99999;">
+    <div class="modal" style="display: block" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Usuario</h5>
+                    <button type="button" class="close" (click)="oculto = 'oculto'" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" ngNativeValidate #f="ngForm">
+                        <div class="form-group">
+                            <label class="col-md-12">Nombre</label>
+                            <div class="col-md-12">
+                                <input type="text" [(ngModel)]="user.nombre" name="nombre" class="form-control" placeholder="Nombre" value="" required>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Correo</label>
+                            <div class="col-md-12">
+                                <input type="text" [(ngModel)]="user.email" name="email" class="form-control" placeholder="Correo" value="" required> </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button (click)='actualizaUsuario(user)' type="button" class="btn btn-primary">
+                        <span *ngIf="spinSave">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </span> Guardar</button>
+                    <button (click)="oculto = 'oculto'" type="button" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class=" animated fadeIn" [ngClass]="modalNuevo" style="background: rgba(0, 0, 0, 0.4);position:fixed;top:0px;left: 0;width: 100%;height: 100%;z-index: 99999;">
+    <div class="modal" style="display: block" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Crear Usuario</h5>
+                    <button type="button" class="close" (click)="modalNuevo = 'modalNuevo'" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="frmNuevoUsuario" ngNativeValidate [formGroup]="frmNuevoUsuario" (ngSubmit)="guardarUsuario()">
+                        <div class="form-group" [ngClass]="{
+                            'has-danger':frmNuevoUsuario.controls['nombre'].errors && (frmNuevoUsuario.controls['nombre'].dirty || frmNuevoUsuario.controls['nombre'].touched), 
+                            'has-success': frmNuevoUsuario.controls['nombre'].valid && frmNuevoUsuario.controls['nombre'].dirty }">
+                            <label class="col-md-12">Nombre</label>
+                            <div class="col-md-12">
+                                <input type="text" formControlName="nombre" name="nombre" class="form-control" placeholder="Nombre" value="" required>
+                            </div>
+                            <div *ngIf="frmNuevoUsuario.controls['nombre'].errors && (frmNuevoUsuario.controls['nombre'].dirty || frmNuevoUsuario.controls['nombre'].touched)  "
+                                class="help-block">
+                                <!-- <div [hidden]="!frmNuevoUsuario.controls['nombre'].errors.required">Este campo es requerido.</div> -->
+                                <p class="text-danger">
+                                    Este campo es requerido.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" [ngClass]="{
+                            'has-danger':frmNuevoUsuario.controls['email'].errors && (frmNuevoUsuario.controls['email'].dirty || frmNuevoUsuario.controls['email'].touched), 
+                            'has-success': frmNuevoUsuario.controls['email'].valid && frmNuevoUsuario.controls['email'].dirty }">
+                            <label class="col-md-12">Correo</label>
+                            <div class="col-md-12">
+                                <input type="text" formControlName="email" name="email" class="form-control" placeholder="Correo" value="" required>
+                            </div>
+                            <div *ngIf="frmNuevoUsuario.controls['email'].errors && (frmNuevoUsuario.controls['email'].dirty || frmNuevoUsuario.controls['email'].touched)  "
+                                class="help-block">
+                                <!-- <div [hidden]="!frmNuevoUsuario.controls['nombre'].errors.required">Este campo es requerido.</div> -->
+                                <p class="text-danger">
+                                    Este campo es requerido.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" [ngClass]="{
+                            'has-danger':frmNuevoUsuario.controls['password'].errors && (frmNuevoUsuario.controls['password'].dirty || frmNuevoUsuario.controls['password'].touched), 
+                            'has-danger': frmNuevoUsuario.errors?.sonIguales && (frmNuevoUsuario.controls['password'].dirty || frmNuevoUsuario.controls['password'].touched),
+                            'has-success': frmNuevoUsuario.controls['password'].valid && frmNuevoUsuario.controls['password'].dirty }">
+                            <label class="col-md-12">Contraseña</label>
+                            <div class="col-md-12">
+                                <input type="password" formControlName="password" name="password" class="form-control" placeholder="Contraseña" value=""
+                                    required>
+                            </div>
+                            <div *ngIf="frmNuevoUsuario.controls['password'].errors && (frmNuevoUsuario.controls['password'].dirty || frmNuevoUsuario.controls['password'].touched)  "
+                                class="help-block">
+                                <!-- <div [hidden]="!frmNuevoUsuario.controls['nombre'].errors.required">Este campo es requerido.</div> -->
+                                <p class="text-danger">
+                                    Este campo es requerido.
+                                </p>
+                            </div>
+                            <div *ngIf="frmNuevoUsuario.errors?.sonIguales && (frmNuevoUsuario.controls['password'].dirty || frmNuevoUsuario.controls['password'].touched)  "
+                            class="help-block">
+                            <p class="text-danger">
+                                Las Contraseñas deben ser iguales.
+                            </p>
+                        </div>
+                        </div>
+                        <div class="form-group" [ngClass]="{
+                            'has-danger':frmNuevoUsuario.controls['password2'].errors && (frmNuevoUsuario.controls['password2'].dirty || frmNuevoUsuario.controls['password2'].touched ),
+                            'has-danger': frmNuevoUsuario.errors?.sonIguales && (frmNuevoUsuario.controls['password2'].dirty || frmNuevoUsuario.controls['password2'].touched),
+                            'has-success': frmNuevoUsuario.controls['password2'].valid && frmNuevoUsuario.controls['password2'].dirty }">
+                            <label class="col-md-12">Confirmar Contraseña</label>
+                            <div class="col-md-12">
+                                <input type="password" formControlName="password2" name="password2" class="form-control" placeholder="Confirmar Contraseña"
+                                    value="" required>
+                            </div>
+                            <div *ngIf="frmNuevoUsuario.controls['password2'].errors && (frmNuevoUsuario.controls['password2'].dirty || frmNuevoUsuario.controls['password2'].touched)  "
+                                class="help-block">
+                                <!-- <div [hidden]="!frmNuevoUsuario.controls['nombre'].errors.required">Este campo es requerido.</div> -->
+                                <p class="text-danger">
+                                    Este campo es requerido.
+                                </p>
+                            </div>
+                            <div *ngIf="frmNuevoUsuario.errors?.sonIguales && (frmNuevoUsuario.controls['password2'].dirty || frmNuevoUsuario.controls['password2'].touched)  "
+                                class="help-block">
+                                <p class="text-danger">
+                                    Las Contraseñas deben ser iguales.
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="guardarUsuario()" [disabled]="frmNuevoUsuario.invalid" type="button" class="btn btn-primary">
+                        <span *ngIf="spinSave">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </span> Guardar</button>
+                    <button (click)="modalNuevo = 'modalNuevo'" type="button" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class=" animated fadeIn" [ngClass]="pwdmodal" style="background: rgba(0, 0, 0, 0.4);position:fixed;top:0px;left: 0;width: 100%;height: 100%;z-index: 99999;">
+    <div class="modal" style="display: block" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cambiar Contraseña</h5>
+                    <button type="button" class="close" (click)="pwdmodal = 'pwdmodal'" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form ngNativeValidate [formGroup]="frmCambiopwd" class="form-horizontal" id="frmCambiopwd" (ngSubmit)="cambiarPwd()">
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input formControlName="password" name="password" class="form-control" type="password" required placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input formControlName="password2" name="password2" class="form-control" type="password" required placeholder="Confirma Password">
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="frmCambiopwd.errors?.sonIguales && !frmCambiopwd.pristine">
+                            <p class="text-danger">
+                                Las contraseña deben de ser iguales
+                            </p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button (click)='cambiarPwd(user)' type="button" class="btn btn-primary">
+                        <span *ngIf="spinSave">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </span> Guardar</button>
+                    <button (click)="pwdmodal = 'pwdmodal'" type="button" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

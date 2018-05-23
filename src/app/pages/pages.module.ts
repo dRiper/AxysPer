@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule,FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
 import { ShareModule } from "../shared/share.module";
 import { ChartsModule } from 'ng2-charts';
 
@@ -19,6 +19,11 @@ import { PipesModule } from "../pipes/pipes.module";
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 
+import { HttpModule } from '@angular/http';
+
+import { DataTablesModule  } from 'angular-datatables';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { AlumnosComponent } from './alumnos/alumnos.component';
 
 
 @NgModule({
@@ -33,7 +38,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
         PromesasComponent,
         RxjsComponent,
         ProfileComponent,
-        UsuariosComponent
+        UsuariosComponent, ModalUploadComponent, AlumnosComponent
     ],
     exports : [
         PagesComponent,
@@ -47,7 +52,10 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
         PAGES_ROUTES,
         FormsModule,
         ChartsModule,
-        PipesModule
+        PipesModule,
+        DataTablesModule,
+        HttpModule,
+        ReactiveFormsModule
     ]
 })
 

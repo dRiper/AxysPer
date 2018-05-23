@@ -21,7 +21,14 @@ export class UsuarioService {
 
   crearUsuario(usuario: Usuario) {
     let url = URL_SERVICIOS + "/usuario";
-    return this.http.post(url, usuario);
+    let headers = new HttpHeaders();
+    return this.http.post(url, usuario,{headers: {'Authorization':this.token}});
+  }
+
+  cambiarContraseña(usuario: Usuario){
+    let headers = new HttpHeaders();
+    let url = URL_SERVICIOS + "/usuario/cambiopwd";
+    return this.http.post(url, usuario,{headers: {'Authorization':this.token}});
   }
 
   estaLogeado() {
@@ -66,7 +73,7 @@ export class UsuarioService {
     return this.http.put(url,usuario,{headers: {'Authorization':this.token}})
                     .map((resp :any) => {
                       this.guardarStorage(resp.id,this.token,usuario);
-                      swal('Usuario Actualizado',usuario.nombre,'success');
+                      
                     });
     
   }
@@ -99,5 +106,25 @@ export class UsuarioService {
                               });
 
 
+  }
+
+  listarUsuarios(){
+    let url = URL_SERVICIOS + "/usuario";
+    return this.http.get(url);
+  }
+
+  ObtenerUsuario(id:number){
+    let url = URL_SERVICIOS + "/usuario/" + id;
+    return this.http.get(url);
+  }
+
+  eliminarUsuario(idUsuario){
+    let url = URL_SERVICIOS + '/usuario/' + idUsuario;
+    let headers = new HttpHeaders();
+    return this.http.delete(url,{headers: {'Authorization':this.token}})
+    .map((resp:any) => {
+      swal('Usuario Borrado','El usuario a sido eliminado correctamente','success');
+      return true;
+    });
   }
 }
